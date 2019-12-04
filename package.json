@@ -1,0 +1,21 @@
+{
+  "name": "api.noticias",
+  "version": "1.0.0",
+  "description": "API dedicado a scrapear noticias de varias paginas Dominicanas",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scraper",
+    "polls",
+    "api",
+    "news"
+  ],
+  "author": "Pedro Guerrero",
+  "license": "ISC",
+  "dependencies": {
+    "osmosis": "^1.1.10",
+    "x-ray": "^2.3.4"
+  }
+}
