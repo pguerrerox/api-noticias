@@ -2,7 +2,7 @@
 
 //libraries
 const Xray = require('x-ray');
-const Filters = require('../xray-filters');
+const Filters = require('../filters');
 
 //xray init
 const xray = new Xray({
