@@ -1,10 +1,11 @@
 'use strict'
 
-//libraries
+// libraries
 const Xray = require('x-ray');
-const Filters = require('../filters');
+const Filters = require('../aux/filters');
+const cb = require('../aux/callback');
 
-//xray init
+// xray init
 const xray = new Xray({
   filters:{
     twitterfy: Filters.twitterfy,
@@ -15,9 +16,9 @@ const xray = new Xray({
 const scraper = function (baseurl, param){
   // baseurl (string) = https://www.listindiario.com/buscar?find=
   // param (string) = politica
-
   let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
   let url = String(baseurl+param);
+
   xray(url, 'div#users > ul > li',
   [{
     link: 'div > div > a@href',
@@ -34,7 +35,8 @@ const scraper = function (baseurl, param){
       ])
     }))
   }])
-  .write(`data/${site}.json`)
+  ((err, data) => cb(err, data, site, param))
 }
 
+// scraper("https://www.listindiario.com/buscar?find=","politica")
 module.exports = scraper;

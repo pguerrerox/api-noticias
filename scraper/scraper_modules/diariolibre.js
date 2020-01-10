@@ -1,8 +1,9 @@
 'use strict'
 
-//libraries
+// libraries
 const Xray = require('x-ray');
-const Filters = require('../filters');
+const Filters = require('../aux/filters');
+const cb = require('../aux/callback');
 
 // xray init
 const xray = new Xray({
@@ -11,12 +12,12 @@ const xray = new Xray({
   }
 });
 
-const scraper = function (baseurl, param) {
+function scraper(baseurl, param){
   // baseurl (string) = https://www.diariolibre.com/cronologia/ver/meta/
   // param (string) = politica
-
   let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
   let url = String(baseurl+param);
+
   xray(url, 'article.article',
   [{
     link: 'div > div > div > div > a@href',
@@ -33,7 +34,8 @@ const scraper = function (baseurl, param) {
       ])
     }))
   }])
-  .write(`data/${site}.json`)
+  ((err, data) => cb(err, data, site, param))
 }
 
+// scraper('https://www.diariolibre.com/cronologia/ver/meta/', 'politica');
 module.exports = scraper;

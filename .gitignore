@@ -1,8 +1,8 @@
 #files
 .DS_Store
+.vscode
 
 
 #folders
 /node_modules
 /off
-/data
