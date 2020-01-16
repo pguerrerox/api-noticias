@@ -11,14 +11,3 @@ app.listen(port, function(){
 // routes
 let routes = require('./api/routes/routes');
 routes(app);
-
-// mongoose
-let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
-
-// database
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open',function(){
-  console.log('Connected...')
-})

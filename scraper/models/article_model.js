@@ -1,9 +1,11 @@
-'use strict';
+'use strict'
 
+// libraries
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let ArticuloSchema = new Schema({
+// schema
+let articuloSchema = new Schema({
   link: String,
   content: {
     title: String,
@@ -11,12 +13,25 @@ let ArticuloSchema = new Schema({
     date: Date,
     subcategory: String,
     summary: String,
-    related_links: {
-      type: Array,
-      default: undefined
-    }
+    related_links: Array
   },
-  multimedia: String
+  source: String,
+  category: String,
+  uuid: {
+    type: String,
+    validate: {
+      validator: function(value){
+        return new Promise((resolve, reject) => {
+          let result = this.constructor.findOne({uuid : value})
+          .then(() => {
+            if(!result){resolve(true)}
+            else {resolve(false)}
+          })
+        })
+      }
+    }
+  }
+  // multimedia: String
 })
 
-module.exports = mongoose.model('Articulo', ArticuloSchema);
+module.exports = mongoose.model('Articulo', articuloSchema);
