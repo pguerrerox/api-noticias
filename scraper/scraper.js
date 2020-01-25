@@ -35,11 +35,11 @@ sites.forEach(function(elem){
         summary: element.content.summary,
         related_links: element.content.related_links
       },
-      source: element.source ,
-      category: element.category ,
+      source: element.source,
+      category: element.category,
       uuid: element.uuid,
     })
-    
+
     articulo.save((err) => {
         if(!err){
         console.log('done?')
