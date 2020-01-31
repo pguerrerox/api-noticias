@@ -1,10 +1,12 @@
 'use strict'
 // DESC
-// function to be used as a callback-function on the 'xray' scraper
+// module exports a function to be used as a callback-function on the 'xray' scraper
 
 // libraries
-const cryptoHash = require('./crypto-hash');
 const fs = require('fs');
+
+// helpers
+const cryptoHash = require('./crypto-hash');
 
 function cb(err, data, site, param){
   if(!err){
@@ -16,7 +18,7 @@ function cb(err, data, site, param){
     let stringData = JSON.stringify(data);
 
     // fs path: need to verify
-    fs.writeFileSync(`../../data/${site}.json`, stringData,'utf8', (err) => {
+    fs.writeFileSync(`../../data/${site}_${param}.json`, stringData,'utf8', (err) => {
       if(err) throw err;
     })
     // console.log(JSON.parse(stringData));

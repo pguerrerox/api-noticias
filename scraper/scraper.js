@@ -2,26 +2,29 @@
 
 // libraries
 const fs = require('fs');
+
+// helpers
 const sites = require('./aux/sites');
 const articuloModel = require('./models/article_model');
 // const testModel = require('./models/test_model');
 
-// scraper modules
-let diariolibre = require('./scraper_modules/diariolibre');
-let listindiario = require('./scraper_modules/listindiario');
-
 // mongoose
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // database
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
-db.once('open',function(){
+db.once('open', function () {
   console.log('Connected...')
 });
 
-sites.forEach(function(elem){
+// TODO: create scraper function/module
+
+
+
+// TODO: modularize saving funcionality
+sites.forEach(function (elem) {
   let dataFile = JSON.parse(fs.readFileSync(`../data/${elem.site}.json`, 'utf8'));
   for (let i = 0; i < dataFile.length; i++) {
     let element = dataFile[i];
@@ -41,7 +44,7 @@ sites.forEach(function(elem){
     })
 
     articulo.save((err) => {
-        if(!err){
+      if (!err) {
         console.log('done?')
       } else {
         console.error(err.message);
