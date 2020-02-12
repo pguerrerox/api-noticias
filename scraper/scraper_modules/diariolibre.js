@@ -21,6 +21,7 @@ function scraper(baseurl, param) {
   let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
   let url = String(baseurl + param);
 
+  console.log(`Starting scraper... ${site}/${param}`);
   xray(url, 'article.article',
     [{
       link: 'div > div > div > div > a@href',
@@ -37,7 +38,8 @@ function scraper(baseurl, param) {
           ])
         }))
     }])
-    ((err, data) => cb(err, data, site, param))
+    ((err, data) => cb(err, data, site, param));
+    console.log(`Scraper done... ${site}/${param}`);
 }
 
 // scraper('https://www.diariolibre.com/cronologia/ver/meta/', 'politica');

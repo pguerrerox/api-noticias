@@ -23,7 +23,7 @@ function cb(err, data, site, param){
     })
     // console.log(JSON.parse(stringData));
   } else {
-    console.error(err);
+    throw err;
   }
 }
 
