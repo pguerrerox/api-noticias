@@ -14,15 +14,17 @@ const xray = new Xray({
   }
 });
 
-function scraper(baseurl, param) {
+let localCounter = 1;
+
+async function scraper(baseurl, param, iteration) {
   // baseurl (string) = https://www.listindiario.com/buscar?find=
   // param (string) = politica
 
   let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
   let url = String(baseurl + param);
 
-  console.log(`Starting scraper... ${site}/${param}`);
-  xray(url, 'div#users > ul > li',
+  console.log(`${iteration}.${localCounter} - Starting scraper... ${site}/${param}`);
+  await xray(url, 'div#users > ul > li',
     [{
       link: 'div > div > a@href',
       content: xray('div > div > a@href',
@@ -39,7 +41,8 @@ function scraper(baseurl, param) {
         }))
     }])
     ((err, data) => cb(err, data, site, param));
-    console.log(`Scraper done... ${site}/${param}`);
+    console.log(`${iteration}.${localCounter} - Scraper done... ${site}/${param}`);
+    localCounter ++;
 }
 
 // scraper("https://www.listindiario.com/buscar?find=","politica")

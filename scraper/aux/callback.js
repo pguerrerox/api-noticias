@@ -4,26 +4,32 @@
 
 // libraries
 const fs = require('fs');
-
-// helpers
+const path = require('path');
 const cryptoHash = require('./crypto-hash');
 
-function cb(err, data, site, param){
-  if(!err){
-    data.forEach(elem => {
-      elem.source = site; // site (string) = variable on host
-      elem.category = param; // param (string) = variable on host 
-      elem.uuid = cryptoHash(elem.link)
-    });
-    let stringData = JSON.stringify(data);
-
-    // fs path: need to verify
-    fs.writeFileSync(`../../data/${site}_${param}.json`, stringData,'utf8', (err) => {
-      if(err) throw err;
-    })
-    // console.log(JSON.parse(stringData));
-  } else {
-    throw err;
+// main function...
+async function cb(err, data, site, param){
+  console.log(`${site}/${param} - scrape done...`);
+  try{
+    if(!err){
+      data.forEach(elem => {
+        elem.source = site; // site (string) = variable on host
+        elem.category = param; // param (string) = variable on host 
+        elem.uuid = cryptoHash(elem.link)
+      });
+      let stringData = JSON.stringify(data);
+  
+      let pathToData = path.join(__dirname,'..', '..', 'data')
+      await fs.writeFileSync(`${pathToData}/${site}_${param}.json`, stringData,'utf8', (err) => {
+        if(err) throw err;
+      })
+      console.log(`${site}/${param} - file created...`);
+    } else {
+      throw err;
+    }
+  }
+  catch(err){
+    console.log(err);
   }
 }
 

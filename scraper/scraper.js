@@ -5,55 +5,42 @@ const fs = require('fs');
 
 // helpers
 const sites = require('./aux/sites');
-const articuloModel = require('./models/article_model');
-// const testModel = require('./models/test_model');
+// const goScrape = require('./aux/goScrape');
+// const saveData = require('./aux/saveData');
 
-// mongoose
-let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
+// function scrapeAndSave(_sites, _timeInterval){
+//   setInterval( async ()=>{
+//     try{
+//       console.log('arrancamos');
+//       await goScrape(_sites);
+//       console.log('websites scraped, files created');
+//       await saveData(_sites);
+//       console.log('files saved to DB');
+//     }
+//     catch(err){
+//       console.log(err);
+//     }
+//   }, _timeInterval*(1000*60));
+// }
 
-// database
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function () {
-  console.log('Connected...')
-});
+// scrapeAndSave(sites, 1);
 
-// TODO: create scraper function/module
+// const testing = async () => {
+//   console.log('arrancamos');
+//   goScrape(sites);
+//   await console.log('donre');
+//   await saveData(sites);
+//   console.log('files saved to DB');
+// }
 
-
-
-// TODO: modularize saving funcionality
-sites.forEach(function (elem) {
-  let dataFile = JSON.parse(fs.readFileSync(`../data/${elem.site}.json`, 'utf8'));
-  for (let i = 0; i < dataFile.length; i++) {
-    let element = dataFile[i];
-    let articulo = new articuloModel({
-      link: element.link,
-      content: {
-        title: element.content.title,
-        author: element.content.author,
-        // date: element.content.date,
-        subcategory: element.content.subcategory,
-        summary: element.content.summary,
-        related_links: element.content.related_links
-      },
-      source: element.source,
-      category: element.category,
-      uuid: element.uuid,
-    })
-
-    articulo.save((err) => {
-      if (!err) {
-        console.log('done?')
-      } else {
-        console.error(err.message);
-      }
-    })
+const start = async (x) => {
+  try{
+    await require('./aux/goScrape')(x);
+    await require('./aux/saveData')(x);
   }
-})
+  catch(err){
+    console.log(err);
+  }
+}
 
-// articuloModel.find({}, 'link' , {lean: true} ,function(err, vals){
-//   if(err) return console.err(err);
-//   console.log(vals[0]);
-// })
+start(sites);

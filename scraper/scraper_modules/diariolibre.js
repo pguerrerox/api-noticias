@@ -2,10 +2,11 @@
 
 // libraries
 const Xray = require('x-ray');
-
-// helpers
 const filters = require('../aux/filters');
 const cb = require('../aux/callback');
+
+// helpers/testing
+// scraper('https://www.diariolibre.com/cronologia/ver/meta/', 'politica');
 
 // xray init
 const xray = new Xray({
@@ -14,6 +15,7 @@ const xray = new Xray({
   }
 });
 
+// main function...
 function scraper(baseurl, param) {
   // baseurl (string) = https://www.diariolibre.com/cronologia/ver/meta/
   // param (string) = politica
@@ -21,7 +23,8 @@ function scraper(baseurl, param) {
   let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
   let url = String(baseurl + param);
 
-  console.log(`Starting scraper... ${site}/${param}`);
+  console.log(`${site}/${param} - scraper working...`);
+
   xray(url, 'article.article',
     [{
       link: 'div > div > div > div > a@href',
@@ -38,9 +41,7 @@ function scraper(baseurl, param) {
           ])
         }))
     }])
-    ((err, data) => cb(err, data, site, param));
-    console.log(`Scraper done... ${site}/${param}`);
+    (async (err, data) => await cb(err, data, site, param));
 }
 
-// scraper('https://www.diariolibre.com/cronologia/ver/meta/', 'politica');
 module.exports = scraper;
