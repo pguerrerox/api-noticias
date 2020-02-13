@@ -18,7 +18,6 @@ async function cb(err, data, site, param){
         elem.uuid = cryptoHash(elem.link)
       });
       let stringData = JSON.stringify(data);
-  
       let pathToData = path.join(__dirname,'..', '..', 'data')
       await fs.writeFileSync(`${pathToData}/${site}_${param}.json`, stringData,'utf8', (err) => {
         if(err) throw err;
