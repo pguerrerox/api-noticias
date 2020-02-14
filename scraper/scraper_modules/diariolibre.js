@@ -1,31 +1,21 @@
 'use strict'
+// DESC: module exports a function that scrape "diariolibre" website...
 
 // libraries
 const Xray = require('x-ray');
 const filters = require('../aux/filters');
-const cb = require('../aux/callback');
-
-// helpers/testing
-// scraper('https://www.diariolibre.com/cronologia/ver/meta/', 'politica');
 
 // xray init
 const xray = new Xray({
   filters: {
-    twitterfy: filters.twitterfy
+    twitterfy: filters.twitterfy,
+    clean: filters.clean
   }
 });
 
 // main function...
-function scraper(baseurl, param) {
-  // baseurl (string) = https://www.diariolibre.com/cronologia/ver/meta/
-  // param (string) = politica
-
-  let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
-  let url = String(baseurl + param);
-
-  console.log(`${site}/${param} - scraper working...`);
-
-  xray(url, 'article.article',
+const moduleFunc = function (_url, _callback, _site, _param) {
+  xray(_url, 'article.article',
     [{
       link: 'div > div > div > div > a@href',
       content: xray('div > div > div > div > a@href',
@@ -41,7 +31,7 @@ function scraper(baseurl, param) {
           ])
         }))
     }])
-    (async (err, data) => await cb(err, data, site, param));
+    ((err, data) => _callback(err, data, _site, _param))
 }
 
-module.exports = scraper;
+module.exports = moduleFunc;

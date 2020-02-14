@@ -12,7 +12,7 @@ const articuloModel = require('../models/article_model');
 // const testModel = require('./models/test_model');
 
 // mongoose
-let mongoose = require('mongoose');
+// let mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // database
@@ -28,8 +28,8 @@ let mongoose = require('mongoose');
 
 // main function...
 // _sites: array of objects
-function saveToDB(_sites){
-  console.log('SAVED TO DB');
+function saveToDB(_site, _param){
+  console.log(`${_site}/${_param} - saving to DB`);
   
   // _sites.forEach(function (elem) {
   //   let dataFile = JSON.parse(fs.readFileSync(`../../data/${elem.site}_${elem.params}.json`, 'utf8'));
@@ -61,4 +61,3 @@ function saveToDB(_sites){
 }
 
 module.exports = saveToDB;
-

@@ -1,30 +1,21 @@
 'use strict'
+// DESC: module exports a function that scrape "listindiario" website...
 
 // libraries
 const Xray = require('x-ray');
-
-// helpers
 const filters = require('../aux/filters');
-const cb = require('../aux/callback');
 
 // xray init
 const xray = new Xray({
   filters: {
-    twitterfy: filters.twitterfy, clean: filters.clean,
+    twitterfy: filters.twitterfy,
+    clean: filters.clean
   }
 });
 
-let localCounter = 1;
-
-async function scraper(baseurl, param, iteration) {
-  // baseurl (string) = https://www.listindiario.com/buscar?find=
-  // param (string) = politica
-
-  let site = baseurl.match(/(\/\/www.)(.+)(.com)/)[2];
-  let url = String(baseurl + param);
-
-  console.log(`${iteration}.${localCounter} - Starting scraper... ${site}/${param}`);
-  await xray(url, 'div#users > ul > li',
+// main function...
+const moduleFunc = function (_url, _callback, _site, _param) {
+  xray(_url, 'div#users > ul > li',
     [{
       link: 'div > div > a@href',
       content: xray('div > div > a@href',
@@ -40,10 +31,7 @@ async function scraper(baseurl, param, iteration) {
           ])
         }))
     }])
-    ((err, data) => cb(err, data, site, param));
-    console.log(`${iteration}.${localCounter} - Scraper done... ${site}/${param}`);
-    localCounter ++;
+    ((err, data) => _callback(err, data, _site, _param))
 }
 
-// scraper("https://www.listindiario.com/buscar?find=","politica")
-module.exports = scraper;
+module.exports = moduleFunc;

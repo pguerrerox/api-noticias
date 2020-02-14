@@ -1,13 +1,11 @@
 'use strict'
+// DESC: starts the scraper function periodically with a time interval...
 
 // libraries
-const fs = require('fs');
-
-// helpers
 const sites = require('./aux/sites');
-// const goScrape = require('./aux/goScrape');
-// const saveData = require('./aux/saveData');
+const startScrapers = require('./aux/startScrapers');
 
+// main function...
 // function scrapeAndSave(_sites, _timeInterval){
 //   setInterval( async ()=>{
 //     try{
@@ -23,24 +21,4 @@ const sites = require('./aux/sites');
 //   }, _timeInterval*(1000*60));
 // }
 
-// scrapeAndSave(sites, 1);
-
-// const testing = async () => {
-//   console.log('arrancamos');
-//   goScrape(sites);
-//   await console.log('donre');
-//   await saveData(sites);
-//   console.log('files saved to DB');
-// }
-
-const start = async (x) => {
-  try{
-    await require('./aux/goScrape')(x);
-    await require('./aux/saveData')(x);
-  }
-  catch(err){
-    console.log(err);
-  }
-}
-
-start(sites);
+startScrapers(sites);
