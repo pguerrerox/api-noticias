@@ -13,7 +13,7 @@ async function scrapeAndSave(_sites){
       let params = site.params; 
       params.forEach(param => {
         console.log(`${site.site}/${param} - scraper started...`);
-        // scraperModule(site.baseUrl, param);
+        scraperModule(site.baseUrl, param);
       });
     });
     console.log('working on the background...');
