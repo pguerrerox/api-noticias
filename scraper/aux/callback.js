@@ -8,8 +8,8 @@ const cryptoHash = require('./crypto-hash');
 const saveDataDB = require('./save-to-db');
 
 // main function...
-function cb(err, data, site, param){
-  console.log(`${site}/${param} - scrape done...`);
+module.exports = function cb(err, data, site, param){
+  // console.log(`${site}/${param} - scrape done...`);
   if(err) throw err;
   data.forEach(elem => {
     elem.source = site; // site (string) = variable on host
@@ -21,9 +21,7 @@ function cb(err, data, site, param){
   return fs.writeFile (`${pathToData}/${site}_${param}.json`, stringData, 'utf8', (err) => {
     if (err) throw err;
   
-    console.log(`${site}/${param} - file created...`);
+    // console.log(`${site}/${param} - file created...`);
     saveDataDB(site, param);
   })
 }
-
-module.exports = cb;

@@ -1,24 +1,46 @@
 'use strict'
-// DESC: starts the scraper function periodically with a time interval...
+// DESC: runs the scrapers periodically...
 
 // libraries
 const sites = require('./aux/sites');
-const startScrapers = require('./aux/startScrapers');
+const scraperModule = require('./aux/scraperModule');
 
 // main function...
-// function scrapeAndSave(_sites, _timeInterval){
-//   setInterval( async ()=>{
-//     try{
-//       console.log('arrancamos');
-//       await goScrape(_sites);
-//       console.log('websites scraped, files created');
-//       await saveData(_sites);
-//       console.log('files saved to DB');
-//     }
-//     catch(err){
-//       console.log(err);
-//     }
-//   }, _timeInterval*(1000*60));
-// }
+async function scrapeAndSave(_sites){
+  try{
+    console.log('inicio...');
+    _sites.forEach(site => {
+      let params = site.params; 
+      params.forEach(param => {
+        console.log(`${site.site}/${param} - scraper started...`);
+        // scraperModule(site.baseUrl, param);
+      });
+    });
+    console.log('working on the background...');
+    
+  }
+  catch(err){
+    console.log(err);
+  }
+}
 
-startScrapers(sites);
+function counter(time){
+  let sec = time*1000*60;
+  function plus1(){
+    if(sec <= 0){
+      sec = time*1000*60
+    }
+    console.log(`Time to next scraping: ${sec/60000} mins`);
+    sec -= 1000*60
+  }
+  plus1();
+  return setInterval(plus1, 1000*60)
+}
+
+function start(sites, time){
+  scrapeAndSave(sites);
+  counter(time)
+  return setInterval(()=> scrapeAndSave(sites), time*1000*60)
+}
+
+start(sites, 2) //240min = 4hours...

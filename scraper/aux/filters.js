@@ -1,6 +1,6 @@
 'use strict';
 
-const filters = {
+module.exports = {
   twitterfy: function(text,end){
     return typeof text === 'string' ? text.slice(0, end).concat('...') : text
   },
@@ -8,5 +8,3 @@ const filters = {
     return typeof text === 'string' ? text.trim() : text
   }
 }
-
-module.exports = filters;

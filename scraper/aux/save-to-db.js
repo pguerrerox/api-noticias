@@ -1,6 +1,5 @@
 'use strict'
-// DESC
-// module exports a function that will read the scrapers produce files and save each article 
+// DESC: module exports a function that will read the scrapers produced files and save each article 
 // to the mongoDB, also it will avoid saving duplicates.
 
 // libraries

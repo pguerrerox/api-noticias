@@ -1,6 +1,6 @@
 'use strict'
 
-const sites = [
+module.exports = [
   {
     "site": "diariolibre",
     "baseUrl": "https://www.diariolibre.com/cronologia/ver/meta/",
@@ -12,5 +12,3 @@ const sites = [
     "params": ["politica","deportes","cultura"]
   }
 ]
-
-module.exports = sites;

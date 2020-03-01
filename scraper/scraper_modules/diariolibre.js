@@ -14,7 +14,7 @@ const xray = new Xray({
 });
 
 // main function...
-const moduleFunc = function (_url, _callback, _site, _param) {
+module.exports = function moduleFunc(_url, _callback, _site, _param) {
   xray(_url, 'article.article',
     [{
       link: 'div > div > div > div > a@href',
@@ -33,5 +33,3 @@ const moduleFunc = function (_url, _callback, _site, _param) {
     }])
     ((err, data) => _callback(err, data, _site, _param))
 }
-
-module.exports = moduleFunc;
