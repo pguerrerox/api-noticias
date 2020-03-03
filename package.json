@@ -4,7 +4,8 @@
   "description": "API dedicado a scrapear noticias de varias paginas Dominicanas",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "testScrapers": "node ./scraper/scraper.js"
   },
   "keywords": [
     "scraper",
