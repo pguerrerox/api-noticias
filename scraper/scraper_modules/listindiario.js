@@ -22,7 +22,7 @@ module.exports = function moduleFunc(_url, _callback, _site, _param) {
         xray('div.content > div#content1', {
           title: 'div > article > h1 |  clean',
           author: 'div > article > div.article-body-author',
-          date: 'div.art_sly_1 > span | clean',
+          // date: 'div.art_sly_1 > span | clean',
           subcategory: 'div > article > h3.art_pretitulo | clean',
           //  multimedia: '',
           summary: 'div > article > div#ArticleBody | twitterfy:240 | clean',

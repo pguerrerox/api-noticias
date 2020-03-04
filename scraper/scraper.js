@@ -17,7 +17,6 @@ async function scrapeAndSave(_sites){
       });
     });
     console.log('working on the background...');
-    
   }
   catch(err){
     console.log(err);
@@ -43,4 +42,4 @@ function start(sites, time){
   return setInterval(()=> scrapeAndSave(sites), time*1000*60)
 }
 
-start(sites, 2) //240min = 4hours...
+start(sites, 5) //240min = 4hours...
