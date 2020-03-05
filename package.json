@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "testScrapers": "node ./scraper/scraper.js",
+    "testScrapers": "node ./scraper/scraper.js"
   },
   "keywords": [
     "scraper",
