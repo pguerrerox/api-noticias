@@ -35,9 +35,9 @@ There are two independent parts to this software, the scraper and the API.
   - To specify a site an object key needs to be created on `/scraper/aux/sites.js`
 ```javasxript
   {
-    "site": "listindiario",
-    "baseUrl": "https://www.listindiario.com/buscar?find=",
-    "params": ["politica","deportes","cultura"]
+    "site": site name,
+    "baseUrl": sites url,
+    "params": array of sites categories
   }
 ```
   - For the same site, a module with the x-ray logic most be created on `/scraper/scraper_modules/`
@@ -53,6 +53,11 @@ There are two independent parts to this software, the scraper and the API.
 ## Challenges
 - running scrapers after a change on the target url..
 - adjust the promises to run and wait..
+
+##TODO
+- route-controller for date period
+- api auth
+- 
 
 ## Built With
 * [node.js](https://nodejs.org/) - JS on the server
