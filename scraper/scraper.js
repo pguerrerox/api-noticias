@@ -42,4 +42,5 @@ function start(sites, time){
   return setInterval(()=> scrapeAndSave(sites), time*1000*60)
 }
 
+// start function  call
 start(sites, 5) //240min = 4hours...
